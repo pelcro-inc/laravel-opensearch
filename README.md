@@ -105,6 +105,15 @@ OS_HOSTS="http://opensearch-node1:9200,http://opensearch-node2:9200,http://opens
         'retires'             => env('OS_OPT_RETRIES'),
         'sniff_on_start'      => env('OS_OPT_SNIFF_ON_START'),
         'port_in_host_header' => env('OS_OPT_PORT_HOST_HEADERS'),
+        'connection_params' => [ // Allows you to set custom curl options such as timeout/compression/etc (@see https://github.com/opensearch-project/opensearch-php/blob/main/src/OpenSearch/ClientBuilder.php#L445)
+            'client' => [
+                'curl' => [
+                    CURLOPT_TIMEOUT => 5,
+                    CURLOPT_CONNECTTIMEOUT => 1,
+                    CURLOPT_ENCODING => 'gzip',
+                ]
+            ]
+        ]
     ],
     'query_log'    => [
         'index'      => false, //Or provide a name for the logging index ex: 'laravel_query_logs'

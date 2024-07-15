@@ -23,6 +23,7 @@ class Connection extends BaseConnection
     protected $retires = null;
     protected $sniff = null;
     protected $portInHeaders = null;
+    protected $connectionParams = null;
     protected $rebuild = false;
     protected $allowIdSort = true;
     
@@ -58,6 +59,9 @@ class Connection extends BaseConnection
         }
         if (isset($config['options']['port_in_host_header'])) {
             $this->portInHeaders = $config['options']['port_in_host_header'];
+        }
+        if (isset($config['options']['connection_params'])) {
+            $this->connectionParams = $config['options']['connection_params'];
         }
     }
     
@@ -258,6 +262,9 @@ class Connection extends BaseConnection
         }
         if (!empty($this->portInHeaders)) {
             $builder->includePortInHostHeader($this->portInHeaders);
+        }
+        if (!empty($this->connectionParams)) {
+            $builder->setConnectionParams($this->connectionParams);
         }
         
         return $builder;
